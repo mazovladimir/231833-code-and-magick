@@ -7,7 +7,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillRect(x, y, sizeHorizontal, sizeVertical);
   }  
 
-  function getRandomShadow(max, min) {
+  function getRandom(max, min) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -42,7 +42,7 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.textBaseline = 'top';
   for(var i = 0; i < times.length; i++) {
     if (names[i] !== 'Вы') {
-      ctx.fillStyle = 'rgba(0, 0, 250, ' +  (Math.random() + 0.1) + ')';
+      ctx.fillStyle = 'rgba(0, 0, 250, ' +  getRandom(1,0) + ')';
     } else {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     }
