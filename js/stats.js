@@ -7,6 +7,10 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillRect(x, y, sizeHorizontal, sizeVertical);
   }  
 
+  function getRandomShadow(max, min) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; 
   ctx.fillRect(110, 20, 420, 270);
 
@@ -19,13 +23,11 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', 120, 60);
 
   var max = -1;
-  var maxIndex = -1;
 
   for (var i = 0 ; i < times.length; i++) {
     var time = times[i];
     if (time > max) {
       max = time;
-      maxIndex = i;
     }
   }
   
