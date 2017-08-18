@@ -5,7 +5,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillStyle = color;
     ctx.strokeRect(x, y, sizeHorizontal, sizeVertical);
     ctx.fillRect(x, y, sizeHorizontal, sizeVertical);
-  }  
+  }
 
   function getRandom(max, min) {
     min = Math.ceil(min);
@@ -13,7 +13,7 @@ window.renderStatistics = function (ctx, names, times) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; 
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.fillRect(110, 20, 420, 270);
 
   drawCloud(100, 10, 420, 270, 'rgba(256, 256, 256, 1.0)');
@@ -26,31 +26,31 @@ window.renderStatistics = function (ctx, names, times) {
 
   var max = -1;
 
-  for (var i = 0 ; i < times.length; i++) {
+  for (var i = 0; i < times.length; i++) {
     var time = times[i];
     if (time > max) {
       max = time;
     }
   }
-  
-  var histogramHeight = 150;              
+
+  var histogramHeight = 150;
   var step = histogramHeight / (max - 0);
 
-  var barWidth = 40; 
-  var indent = 90;  
+  var barWidth = 40;
+  var indent = 90;
   var initialX = 150;
-  var initialY = 240; 
-  
+  var initialY = 240;
+
   ctx.textBaseline = 'top';
-  for(var i = 0; i < times.length; i++) {
-    if (names[i] !== 'Вы') {
-      ctx.fillStyle = 'rgba(0, 0, 250, ' +  getRandom(1,0) + ')';
+  for (var j = 0; j < times.length; j++) {
+    if (names[j] !== 'Вы') {
+      ctx.fillStyle = 'rgba(0, 0, 250, ' + getRandom(1, 0) + ')';
     } else {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     }
-    ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * -step);
+    ctx.fillRect(initialX + indent * j, initialY, barWidth, times[j] * -step);
     ctx.fillStyle = '#000';
-    ctx.fillText(names[i], initialX + indent * i, initialY + 5);
-    ctx.fillText(Math.round(times[i]), initialX + indent * i, initialY - times[i] * step - 20);
+    ctx.fillText(names[i], initialX + indent * j, initialY + 5);
+    ctx.fillText(Math.round(times[j]), initialX + indent * j, initialY - times[j] * step - 20);
   }
 };
