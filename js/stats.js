@@ -13,7 +13,7 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.font = '16px PT Mono';
 
   ctx.fillText('Ура вы победили!', 120, 40);
-  ctx.fillText('Список результатов:!', 120, 60);
+  ctx.fillText('Список результатов:', 120, 60);
 
   var max = -1;
   var maxIndex = -1;
@@ -26,19 +26,25 @@ window.renderStatistics = function (ctx, names, times) {
     }
   }
   
-  var histogramWidth = 150;              // px;
-  var step = histogramWidth / (max - 0); // px;
+  //var histogramWidth = 40;              // px;
+  var histogramHeight = 150;              // px;
+  var step = histogramHeight / (max - 0); // px;
+  //var step = histogramWidth / (max - 0); // px;
   
-  ctx.fillText('Худшее время: ' + max.toFixed(2) + 'мс у игрока ' + names[maxIndex], 120, 80);
+  //ctx.fillText('Худшее время: ' + max.toFixed(2) + 'мс у игрока ' + names[maxIndex], 120, 80);
   
-  var barHeigth = 20; // px; 
-  var indent = 40;    // px;
+  //var barHeigth = 150; // px; 
+  var barWidth = 40; // px; 
+  var indent = 90;    // px;
   var initialX = 120; // px;
-  var initialY = 100;  // px;
+  var initialY = 250;  // px;
   
   ctx.textBaseline = 'top'; // положение надписи от левого верхнего угла
   for(var i = 0; i < times.length; i++) {
-    ctx.fillRect(initialX, initialY + indent * i, times[i] * step, barHeigth);
-    ctx.fillText(names[i], initialX + histogramWidth, initialY + indent * i);
+    ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * -step);
+    ctx.fillText(names[i], initialX + indent * i, initialY + 5);
+    ctx.fillText(Math.round(times[i]), initialX + indent * i, initialY - times[i] * step - 20);
+    //ctx.fillRect(initialX, initialY + indent * i, times[i] * step, barHeigth);
+    //ctx.fillText(names[i], initialX + histogramWidth, initialY + indent * i);
   }
 };
