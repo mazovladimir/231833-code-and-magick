@@ -1,11 +1,10 @@
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // black;
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; 
   ctx.fillRect(110, 20, 420, 270);
-  //ctx.strokeRect(110, 20, 420, 270);
 
-  ctx.fillStyle = 'rgba(256, 256, 256, 1.0)'; // white;
+  ctx.fillStyle = 'rgba(256, 256, 256, 1.0)'; 
   ctx.strokeRect(100, 10, 420, 270);
   ctx.fillRect(100, 10, 420, 270);
 
@@ -26,25 +25,24 @@ window.renderStatistics = function (ctx, names, times) {
     }
   }
   
-  //var histogramWidth = 40;              // px;
-  var histogramHeight = 150;              // px;
-  var step = histogramHeight / (max - 0); // px;
-  //var step = histogramWidth / (max - 0); // px;
+  var histogramHeight = 150;              
+  var step = histogramHeight / (max - 0);
+
+  var barWidth = 40; 
+  var indent = 90;  
+  var initialX = 150;
+  var initialY = 240; 
   
-  //ctx.fillText('Худшее время: ' + max.toFixed(2) + 'мс у игрока ' + names[maxIndex], 120, 80);
-  
-  //var barHeigth = 150; // px; 
-  var barWidth = 40; // px; 
-  var indent = 90;    // px;
-  var initialX = 120; // px;
-  var initialY = 250;  // px;
-  
-  ctx.textBaseline = 'top'; // положение надписи от левого верхнего угла
+  ctx.textBaseline = 'top';
   for(var i = 0; i < times.length; i++) {
+    if (names[i] !== 'Вы') {
+      ctx.fillStyle = 'rgba(0, 0, 250, ' +  (Math.random() + 0.1) + ')';
+    } else {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    }
     ctx.fillRect(initialX + indent * i, initialY, barWidth, times[i] * -step);
+    ctx.fillStyle = '#000';
     ctx.fillText(names[i], initialX + indent * i, initialY + 5);
     ctx.fillText(Math.round(times[i]), initialX + indent * i, initialY - times[i] * step - 20);
-    //ctx.fillRect(initialX, initialY + indent * i, times[i] * step, barHeigth);
-    //ctx.fillText(names[i], initialX + histogramWidth, initialY + indent * i);
   }
 };
