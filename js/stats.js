@@ -50,7 +50,7 @@ window.renderStatistics = function (ctx, names, times) {
     }
     ctx.fillRect(initialX + indent * j, initialY, barWidth, times[j] * -step);
     ctx.fillStyle = '#000';
-    ctx.fillText(names[i], initialX + indent * j, initialY + 5);
+    ctx.fillText(names[j], initialX + indent * j, initialY + 5);
     ctx.fillText(Math.round(times[j]), initialX + indent * j, initialY - times[j] * step - 20);
   }
 };
