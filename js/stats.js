@@ -8,14 +8,13 @@ window.renderStatistics = function (ctx, names, times) {
   }
 
   function getRandom(max, min) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
+    if (typeof (min) === 'undefined') {
+      min = 0;
+    }
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-  ctx.fillRect(110, 20, 420, 270);
-
+  drawCloud(110, 20, 420, 270, 'rgba(0, 0, 0, 0.7)');
   drawCloud(100, 10, 420, 270, 'rgba(256, 256, 256, 1.0)');
 
   ctx.fillStyle = '#000';
@@ -27,14 +26,13 @@ window.renderStatistics = function (ctx, names, times) {
   var max = -1;
 
   for (var i = 0; i < times.length; i++) {
-    var time = times[i];
-    if (time > max) {
-      max = time;
+    if (times[i] > max) {
+      max = times[i];
     }
   }
 
   var histogramHeight = 150;
-  var step = histogramHeight / (max - 0);
+  var step = histogramHeight / max;
 
   var barWidth = 40;
   var indent = 90;
@@ -44,7 +42,7 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.textBaseline = 'top';
   for (var j = 0; j < times.length; j++) {
     if (names[j] !== 'Вы') {
-      ctx.fillStyle = 'rgba(0, 0, 250, ' + getRandom(1, 0) + ')';
+      ctx.fillStyle = 'rgba(0, 0, 250, ' + getRandom(100) / 100 + ')';
     } else {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     }
