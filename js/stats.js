@@ -1,12 +1,16 @@
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
+  function drawCloud(x, y, sizeHorizontal, sizeVertical, color) {
+    ctx.fillStyle = color;
+    ctx.strokeRect(x, y, sizeHorizontal, sizeVertical);
+    ctx.fillRect(x, y, sizeHorizontal, sizeVertical);
+  }  
+
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; 
   ctx.fillRect(110, 20, 420, 270);
 
-  ctx.fillStyle = 'rgba(256, 256, 256, 1.0)'; 
-  ctx.strokeRect(100, 10, 420, 270);
-  ctx.fillRect(100, 10, 420, 270);
+  drawCloud(100, 10, 420, 270, 'rgba(256, 256, 256, 1.0)');
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
