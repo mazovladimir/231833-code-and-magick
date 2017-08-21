@@ -1,56 +1,64 @@
 'use strict';
 
-var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var WIZARD_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var WIZARD_EYES = ['black', 'red', 'blue', 'yellow', 'green'];
+(function () {
+  var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+  var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+  var WIZARD_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+  var WIZARD_EYES = ['black', 'red', 'blue', 'yellow', 'green'];
+  var WIZARD_COUNT = 4;
 
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+  var userDialog = document.querySelector('.setup');
+  userDialog.classList.remove('hidden');
+  var similarListElement = userDialog.querySelector('.setup-similar-list');
+  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
-var similarListElement = userDialog.querySelector('.setup-similar-list');
+  var wizards = [];
 
-var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
+  for (var i = 0; i < WIZARD_COUNT; i++) {
+    wizards[i] = new Wizard(getName(), getCoatColor(), getEyesColor());
+  }
 
-var wizards = [];
+  var fragment = document.createDocumentFragment();
 
-for (i = 0; i < 4; i++) {
-  wizards[i] = new Wizard(name(), coatColor(), eyesColor());
-}
+  function Wizard(myname, color, eye) {
+    this.name = myname;
+    this.coatColor = color;
+    this.eyesColor = eye;
+  }
 
-function Wizard(myname, color, eye) {
-  this.name = myname;
-  this.coatColor = color;
-  this.eyesColor = eye;
-}
+  function getRandom(max, min) {
+    if (typeof min === 'undefined') {
+      min = 0;
+    }
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
-function name() {
-  return WIZARD_NAMES[Math.floor(Math.random() * WIZARD_NAMES.length)] + ' ' + WIZARD_SURNAMES[Math.floor(Math.random() * WIZARD_SURNAMES.length)];
-}
+  function getName() {
+    return WIZARD_NAMES[getRandom(WIZARD_NAMES.length - 1)] + ' ' + WIZARD_SURNAMES[getRandom(WIZARD_SURNAMES.length - 1)];
+  }
 
-function coatColor() {
-  return WIZARD_COLORS[Math.floor(Math.random() * WIZARD_COLORS.length)];
-}
+  function getCoatColor() {
+    return WIZARD_COLORS[getRandom(WIZARD_COLORS.length - 1)];
+  }
 
-function eyesColor() {
-  return WIZARD_EYES[Math.floor(Math.random() * WIZARD_EYES.length)];
-}
+  function getEyesColor() {
+    return WIZARD_EYES[getRandom(WIZARD_EYES.length - 1)];
+  }
 
+  var renderWizard = function (wizard) {
+    var wizardElement = similarWizardTemplate.cloneNode(true);
 
-var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
+    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
-  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    return wizardElement;
+  };
 
-  return wizardElement;
-};
+  wizards.forEach(function (item) {
+    fragment.appendChild(renderWizard(item));
+  });
 
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
-}
-similarListElement.appendChild(fragment);
-
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  similarListElement.appendChild(fragment);
+  userDialog.querySelector('.setup-similar').classList.remove('hidden');
+})();
