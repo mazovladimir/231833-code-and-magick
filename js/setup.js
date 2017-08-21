@@ -15,13 +15,13 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template').c
 var wizards = [];
 
 for (i = 0; i < 4; i++) {
-  wizards[i] = new wizard(name(), coatColor(), eyesColor());
+  wizards[i] = new Wizard(name(), coatColor(), eyesColor());
 }
-  
-function wizard(name, color, eye) {
-  this.name = name,
-  this.coatColor = color,
-  this.eyesColor = eye
+
+function Wizard(myname, color, eye) {
+  this.name = myname;
+  this.coatColor = color;
+  this.eyesColor = eye;
 }
 
 function name() {
