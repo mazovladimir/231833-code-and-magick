@@ -8,9 +8,19 @@
   var WIZARD_COUNT = 4;
 
   var userDialog = document.querySelector('.setup');
+  var userDialogOpen = document.querySelector('.setup-open');
+  var userDialogClose = userDialog.querySelector('.setup-close');
   userDialog.classList.remove('hidden');
   var similarListElement = userDialog.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
+
+  userDialogOpen.addEventListener('click', function () {
+    userDialog.classList.remove('hidden');
+  });
+
+  userDialogClose.addEventListener('click', function () {
+    userDialog.classList.add('hidden');
+  });
 
   var wizards = [];
 
