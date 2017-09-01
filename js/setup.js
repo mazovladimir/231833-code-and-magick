@@ -10,9 +10,24 @@
   var userDialog = document.querySelector('.setup');
   var userDialogOpen = document.querySelector('.setup-open');
   var userDialogClose = userDialog.querySelector('.setup-close');
-  userDialog.classList.remove('hidden');
+  // userDialog.classList.remove('hidden');
   var similarListElement = userDialog.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
+  var userNameInput = userDialog.querySelector('.setup-user-name');
+
+  userNameInput.addEventListener('invalid', function () {
+    if (!userNameInput.validity.valid) {
+      if (userNameInput.validity.tooShort) {
+        userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+      } else if (userNameInput.validity.tooLong) {
+        userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+      } else if (userNameInput.validity.valueMissing) {
+        userNameInput.setCustomValidity('Обязательное поле');
+      }
+    } else {
+      userNameInput.setCustomValidity('');
+    }
+  });
 
   userDialogOpen.addEventListener('click', function () {
     userDialog.classList.remove('hidden');
